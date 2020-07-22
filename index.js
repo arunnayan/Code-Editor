@@ -2,7 +2,6 @@ $ = require("jquery");
 require("jstree");
 // $ will take care for jstree also as jstree is built on top ///of jquery
 const nodePath = require("path");
-
 const fs = require("fs");
 
 //for terminal
@@ -34,8 +33,11 @@ $(document).ready(async function () {
   });
   //end terminal
 
+  let editor = createEditor();
+  console.log(editor);
+
   //start editor
-  
+
   //end editor
 
   let currentPath = process.cwd();
@@ -97,4 +99,24 @@ function getCurrentDirectories(path) {
 
 function getFolderNameFromPath(path) {
   return nodePath.basename(path);
+}
+
+function createEditor() {
+  return new Promise(function (resolve, reject) {
+    let monacoeditor = require("./node_modules/monaco-editor/min/vs/loader.js");
+    console.log(monacoeditor);
+    monacoeditor.require.config({
+      paths: { vs: "./node_modules/monaco-editor/min/vs" },
+    });
+
+    monacoeditor.require(["vs/editor/editor.main"], function () {
+      var editor = monaco.editor.create(document.getElementById("editor"), {
+        value: ["function x() {", '\tconsole.log("Hello world!");', "}"].join(
+          "\n"
+        ),
+        language: "javascript",
+      });
+      resolve(editor);
+    });
+  });
 }
