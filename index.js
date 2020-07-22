@@ -72,7 +72,21 @@ $(document).ready(async function () {
           $("#jstree").jstree().create_node(child, granchildren, "last");
         }
       });
+    })
+    .on("select_node.jstree", function (e, data) {
+      console.log(data.node.id);
+
+      openFile(data.node.id);
+      updateFile(data.node.id);
     });
+
+  function openFile(path) {
+    console.log(path);
+  }
+
+  function updateFile(path) {
+    console.log(path);
+  }
 });
 
 function getCurrentDirectories(path) {
