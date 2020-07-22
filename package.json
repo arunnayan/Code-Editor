@@ -11,9 +11,14 @@
   "license": "ISC",
   "dependencies": {
     "electron": "^9.1.0",
-    "electron-rebuild": "^1.11.0",
     "electron-reload": "^1.5.0",
     "jquery": "^3.5.1",
-    "jstree": "^3.3.10"
+    "jstree": "^3.3.10",
+    "node-pty-mac": "0.0.1"
+  },
+  "devDependencies": {
+    "electron-rebuild": "^1.11.0",
+    "node-pty": "^0.9.0",
+    "xterm": "^4.8.1"
   }
 }
