@@ -1,5 +1,6 @@
-$ = require("jquery");
+$ = jQuery = require("jquery");
 require("jstree");
+require("jquery-ui-dist/jquery-ui");
 // $ will take care for jstree also as jstree is built on top ///of jquery
 const nodePath = require("path");
 const fs = require("fs");
@@ -42,6 +43,9 @@ $(document).ready(async function () {
 
   let currentPath = process.cwd();
 
+  //JQUERY TAB
+  let tabs = $("#tabs").tabs();
+  //END
   let data = [];
   let baseObject = {
     id: currentPath,
@@ -80,8 +84,20 @@ $(document).ready(async function () {
       updateFile(data.node.id);
     });
 
+  //https://jqueryui.com/tabs/#manipulation
   function openFile(path) {
-    console.log(path);
+    let fileName = getFolderNameFromPath(path);
+    console.log(fileName);
+    let label = fileName;
+    let id = path;
+    let tabTemplate =
+      "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
+    let li = $(
+      tabTemplate.replace(/#\{href\}/g, "#" + id).replace(/#\{label\}/g, label)
+    );
+    tabs.find(".ui-tabs-nav").append(li);
+    tabs.append("<div id='" + id + "'></div>");
+    tabs.tabs("refresh");
   }
 
   function updateFile(path) {
